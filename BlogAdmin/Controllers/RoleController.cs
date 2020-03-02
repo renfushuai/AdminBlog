@@ -2,45 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Common.HttpContextUser;
+using Blog.IServices;
+using Blog.Model;
+using Blog.Model.Model;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BlogAdmin.Controllers
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// 角色
+    /// </summary>
+    [Route("api/[controller]/[action]")]
     public class RoleController : Controller
     {
-        // GET: api/values
+        readonly IRoleServices _roleServices;
+        readonly ICurrentUser _user;
+
+
+        public RoleController(IRoleServices roleServices, ICurrentUser user)
+        {
+            _roleServices = roleServices;
+            _user = user;
+        }
+        /// <summary>
+        /// 获取全部角色
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        // GET: api/User
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ApiResponseModel<PageModel<Role>>> Get(int page = 1, string key = "")
         {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+            int intPageSize = 50;
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+            var data = await _roleServices.QueryPage(a => a.IsDeleted == false, page, intPageSize, " Id desc ");
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+            return ApiResponse.Success<PageModel<Role>>(data);
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

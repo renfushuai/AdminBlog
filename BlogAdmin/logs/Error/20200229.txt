@@ -23,3 +23,78 @@ Chinese Message :  连接数据库过程中发生错误，检查服务器是否�
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at BlogAdmin.Middlewares.ExceptionHandleMiddleware.Invoke(HttpContext context) in /Users/wangjingyu/Projects/Blog/BlogAdmin/Middlewares/ExceptionHandleMiddleware.cs:line 21
+2020-02-29 21:38:23.279 +08:00 [ERR] /api/role/get接口请求错误
+SqlSugar.SqlSugarException: English Message : Connection open error . Unable to connect to any of the specified MySQL hosts.
+Chinese Message :  连接数据库过程中发生错误，检查服务器是否正常连接字符串是否正确，实在找不到原因请先Google错误信息：Unable to connect to any of the specified MySQL hosts..
+   at SqlSugar.AdoProvider.GetScalarAsync(String sql, SugarParameter[] parameters)
+   at SqlSugar.QueryableProvider`1.GetCountAsync()
+   at SqlSugar.QueryableProvider`1.CountAsync()
+   at SqlSugar.QueryableProvider`1.ToPageListAsync(Int32 pageIndex, Int32 pageSize, RefAsync`1 totalNumber)
+   at Blog.Repository.Base.BaseRepository`1.QueryPage(Expression`1 whereExpression, Int32 intPageIndex, Int32 intPageSize, String strOrderByFileds) in /Users/wangjingyu/Projects/Blog/Blog.Repository/Base/BaseRepository.cs:line 367
+   at Blog.Services.Base.BaseServices`1.QueryPage(Expression`1 whereExpression, Int32 intPageIndex, Int32 intPageSize, String strOrderByFileds) in /Users/wangjingyu/Projects/Blog/Blog.Services/Base/BaseServices.cs:line 251
+   at BlogAdmin.Controllers.RoleController.Get(Int32 page, String key) in /Users/wangjingyu/Projects/Blog/BlogAdmin/Controllers/RoleController.cs:line 43
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at BlogAdmin.Middlewares.ExceptionHandleMiddleware.Invoke(HttpContext context) in /Users/wangjingyu/Projects/Blog/BlogAdmin/Middlewares/ExceptionHandleMiddleware.cs:line 21
+2020-02-29 21:38:41.550 +08:00 [ERR] /api/login/GetJwtStr接口请求错误
+SqlSugar.SqlSugarException: English Message : Connection open error . Unable to connect to any of the specified MySQL hosts.
+Chinese Message :  连接数据库过程中发生错误，检查服务器是否正常连接字符串是否正确，实在找不到原因请先Google错误信息：Unable to connect to any of the specified MySQL hosts..
+   at SqlSugar.AdoProvider.GetDataReaderAsync(String sql, SugarParameter[] parameters)
+   at SqlSugar.QueryableProvider`1.GetDataAsync[TResult](KeyValuePair`2 sqlObj)
+   at SqlSugar.QueryableProvider`1._ToListAsync[TResult]()
+   at Blog.Repository.Base.BaseRepository`1.Query(Expression`1 whereExpression) in /Users/wangjingyu/Projects/Blog/Blog.Repository/Base/BaseRepository.cs:line 234
+   at Blog.Services.Base.BaseServices`1.Query(Expression`1 whereExpression) in /Users/wangjingyu/Projects/Blog/Blog.Services/Base/BaseServices.cs:line 142
+   at Blog.Services.SysUserInfoServices.GetUserByLogin(String loginName, String pwd) in /Users/wangjingyu/Projects/Blog/Blog.Services/SysUserInfoServices.cs:line 27
+   at BlogAdmin.Controllers.LoginController.GetJwtStr(String name, String pass) in /Users/wangjingyu/Projects/Blog/BlogAdmin/Controllers/LoginController.cs:line 57
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at BlogAdmin.Middlewares.ExceptionHandleMiddleware.Invoke(HttpContext context) in /Users/wangjingyu/Projects/Blog/BlogAdmin/Middlewares/ExceptionHandleMiddleware.cs:line 21
+2020-02-29 21:41:12.977 +08:00 [ERR] /api/login/GetJwtStr接口请求错误
+SqlSugar.SqlSugarException: English Message : Connection open error . Unable to connect to any of the specified MySQL hosts.
+Chinese Message :  连接数据库过程中发生错误，检查服务器是否正常连接字符串是否正确，实在找不到原因请先Google错误信息：Unable to connect to any of the specified MySQL hosts..
+   at SqlSugar.AdoProvider.GetDataReaderAsync(String sql, SugarParameter[] parameters)
+   at SqlSugar.QueryableProvider`1.GetDataAsync[TResult](KeyValuePair`2 sqlObj)
+   at SqlSugar.QueryableProvider`1._ToListAsync[TResult]()
+   at Blog.Repository.Base.BaseRepository`1.Query(Expression`1 whereExpression) in /Users/wangjingyu/Projects/Blog/Blog.Repository/Base/BaseRepository.cs:line 234
+   at Blog.Services.Base.BaseServices`1.Query(Expression`1 whereExpression) in /Users/wangjingyu/Projects/Blog/Blog.Services/Base/BaseServices.cs:line 142
+   at Blog.Services.SysUserInfoServices.GetUserByLogin(String loginName, String pwd) in /Users/wangjingyu/Projects/Blog/Blog.Services/SysUserInfoServices.cs:line 27
+   at BlogAdmin.Controllers.LoginController.GetJwtStr(String name, String pass) in /Users/wangjingyu/Projects/Blog/BlogAdmin/Controllers/LoginController.cs:line 57
+   at lambda_method(Closure , Object )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutorAwaitable.Awaiter.GetResult()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at BlogAdmin.Middlewares.ExceptionHandleMiddleware.Invoke(HttpContext context) in /Users/wangjingyu/Projects/Blog/BlogAdmin/Middlewares/ExceptionHandleMiddleware.cs:line 21
