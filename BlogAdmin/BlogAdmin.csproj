@@ -9,6 +9,14 @@
     <DocumentationFile>bin\Debug\netcoreapp3.1\BlogAdmin.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="logs\**" />
+    <Content Remove="logs\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="Extemsions\" />
     <Folder Include="AuthHelper\" />
