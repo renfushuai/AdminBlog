@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using Blog.Common;
 using Blog.IRepository.UnitOfWork;
 using Castle.DynamicProxy;
@@ -19,18 +21,49 @@ namespace BlogAdmin.AOP
             var transactionAtt = method.GetCustomAttributes(true).FirstOrDefault(x => x.GetType() == typeof(UnitOfWorkAttribute));
             if (transactionAtt is UnitOfWorkAttribute)
             {
-                _unitOfWork.BeginTran();
                 try
                 {
+                    Console.WriteLine($"Begin Transaction");
+
+                    _unitOfWork.BeginTran();
+
                     invocation.Proceed();
-                    //提交事务
+
+
+                    // 异步获取异常，先执行
+                    if (InternalAsyncHelper.IsAsyncMethod(invocation.Method))
+                    {
+                        if (invocation.Method.ReturnType == typeof(Task))
+                        {
+                            invocation.ReturnValue = InternalAsyncHelper.AwaitTaskWithPostActionAndFinally(
+                                (Task)invocation.ReturnValue,
+                                ex =>
+                                {
+                                    _unitOfWork.RollbackTran();
+
+                                });
+                        }
+                        else //Task<TResult>
+                        {
+                            invocation.ReturnValue = InternalAsyncHelper.CallAwaitTaskWithPostActionAndFinallyAndGetResult(
+                             invocation.Method.ReturnType.GenericTypeArguments[0],
+                             invocation.ReturnValue,
+                             ex =>
+                             {
+                                 _unitOfWork.RollbackTran();
+
+                             });
+
+                        }
+
+                    }
                     _unitOfWork.CommitTran();
+
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //回滚
+                    Console.WriteLine(ex);
                     _unitOfWork.RollbackTran();
-                    throw;
                 }
 
             }
@@ -40,5 +73,10 @@ namespace BlogAdmin.AOP
                 invocation.Proceed();
             }
         }
+
+
+
+       
     }
+
 }

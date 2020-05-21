@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Services", "Blog.Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Dto", "Blog.Dto\Blog.Dto.csproj", "{5AB41156-BFFD-4518-BE9D-2B83D12021F5}"
 EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Blog.Test", "Blog.Test\Blog.Test.csproj", "{871FC8C9-C9F4-47CC-A41D-CD2706DD5987}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog.Console", "Blog.Console\Blog.Console.csproj", "{CCC3C1CD-C266-4DCC-B601-22DBD0F9FE70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,5 +59,13 @@ Global
 		{5AB41156-BFFD-4518-BE9D-2B83D12021F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AB41156-BFFD-4518-BE9D-2B83D12021F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AB41156-BFFD-4518-BE9D-2B83D12021F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{871FC8C9-C9F4-47CC-A41D-CD2706DD5987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{871FC8C9-C9F4-47CC-A41D-CD2706DD5987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{871FC8C9-C9F4-47CC-A41D-CD2706DD5987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{871FC8C9-C9F4-47CC-A41D-CD2706DD5987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCC3C1CD-C266-4DCC-B601-22DBD0F9FE70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCC3C1CD-C266-4DCC-B601-22DBD0F9FE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC3C1CD-C266-4DCC-B601-22DBD0F9FE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC3C1CD-C266-4DCC-B601-22DBD0F9FE70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
