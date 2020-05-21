@@ -33,7 +33,7 @@ namespace BlogAdmin
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                    .UseUrls("http://localhost:8081");
+                    .UseUrls("http://*:8081");
                 });
     }
 }

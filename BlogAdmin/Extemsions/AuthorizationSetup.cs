@@ -43,7 +43,7 @@ namespace BlogAdmin.Extemsions
                 Issuer,//发行人
                 Audience,//听众
                 signingCredentials,//签名凭据
-                expiration: TimeSpan.FromSeconds(60 * 60)//接口的过期时间
+                expiration: TimeSpan.FromSeconds(60 * 2)//接口的过期时间
                 );
             #endregion
             //策略授权

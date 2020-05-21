@@ -42,25 +42,32 @@ namespace BlogAdmin.Controllers
             _requirement = requirement;
             _roleModulePermissionServices = roleModulePermissionServices;
         }
+        #region 获取token
+        /// <summary>
+        /// 获取token
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="pass"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetJwtStr")]
         [AllowAnonymous]
         public async Task<ApiResponseModel<JwtTokenDto>> GetJwtStr(string name, string pass)
         {
             string jwtStr = string.Empty;
-            LogServer.WriteLog("用户登录："+name);
+            LogServer.WriteLog("用户登录：" + name);
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(pass))
             {
                 return ApiResponse.Error<JwtTokenDto>("用户名或密码不能为空");
             }
             pass = MD5Helper.MD5Encrypt32(pass);
-            var userInfo =await _sysUserInfoServices.GetUserByLogin(name, pass);
+            var userInfo = await _sysUserInfoServices.GetUserByLogin(name, pass);
             if (userInfo == null)
             {
                 return ApiResponse.Error<JwtTokenDto>("用户名不存在");
             }
             var roleList = await _sysUserInfoServices.GetUserRoleByUserId(userInfo.uID);
-                var claims = new List<Claim> {
+            var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, name),
                     new Claim(JwtRegisteredClaimNames.Jti, userInfo.uID.ObjToString()),
                     new Claim(ClaimTypes.Expiration, DateTime.Now.AddSeconds(_requirement.Expiration.TotalSeconds).ToString()) };
@@ -70,7 +77,7 @@ namespace BlogAdmin.Controllers
 
 
             var data = await _roleModulePermissionServices.RoleModuleMaps();
-           var list= data.OrderBy(m=>m.Id).Select(m => new PermissionItem
+            var list = data.OrderBy(m => m.Id).Select(m => new PermissionItem
             {
                 Url = m.Module?.LinkUrl,
                 Role = m.Role?.Name,
@@ -79,8 +86,42 @@ namespace BlogAdmin.Controllers
             //用户标识
             var identity = new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme);
             identity.AddClaims(claims);
-            var token=JwtHelper.BuildJwtToken(claims, _requirement);
-                return ApiResponse.Success(token);
+            var token = JwtHelper.BuildJwtToken(claims, _requirement);
+            return ApiResponse.Success(token);
         }
+        #endregion
+
+        #region 刷新token
+
+        [HttpGet]
+        [Route("RefreshToken")]
+        public async Task<ApiResponseModel<JwtTokenDto>> RefreshToken(string token)
+        {
+            if (token.IsNullOrEmpty())
+            {
+                return ApiResponse.Error<JwtTokenDto>("token无效，请重新登录");
+            }
+            var tokenModel = JwtHelper.SerializeJwt(token);
+            if (tokenModel != null && tokenModel.Uid > 0)
+            {
+                var user = await _sysUserInfoServices.QueryById(tokenModel.Uid);
+                if (user != null)
+                {
+                    var userRoles = await _sysUserInfoServices.GetUserRoleByUserId(user.uID);
+                    var claims = new List<Claim> {
+                    new Claim(ClaimTypes.Name, user.uLoginName),
+                    new Claim(JwtRegisteredClaimNames.Jti, tokenModel.Uid.ObjToString()),
+                    new Claim(ClaimTypes.Expiration, DateTime.Now.AddSeconds(_requirement.Expiration.TotalSeconds).ToString()) };
+                    claims.AddRange(userRoles.Select(s => new Claim(ClaimTypes.Role, s.Name)));
+                    var identity = new ClaimsIdentity(JwtBearerDefaults.AuthenticationScheme);
+                    identity.AddClaims(claims);
+
+                    var refreshToken = JwtHelper.BuildJwtToken(claims, _requirement);
+                    return ApiResponse.Success<JwtTokenDto>(refreshToken);
+                }
+            }
+            return ApiResponse.Error<JwtTokenDto>("token无效，请重新登录");
+        }
+        #endregion
     }
 }
