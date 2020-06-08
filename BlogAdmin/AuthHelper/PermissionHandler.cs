@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Blog.Common.Helper;
+using Blog.IServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,35 +17,30 @@ namespace BlogAdmin.AuthHelper
     {
         public IAuthenticationSchemeProvider Schemes { get; set; }
         private readonly IHttpContextAccessor _accessor;
+        private readonly IRoleModulePermissionServices _roleModulePermissionServices;
         /// <summary>
         /// 构造函数注入
         /// </summary>
         /// <param name="schemes"></param>
         /// <param name="accessor"></param>
-        public PermissionHandler(IAuthenticationSchemeProvider schemes, IHttpContextAccessor accessor)
+        public PermissionHandler(IAuthenticationSchemeProvider schemes, IRoleModulePermissionServices roleModulePermissionServices, IHttpContextAccessor accessor)
         {
             _accessor = accessor;
             Schemes = schemes;
+            _roleModulePermissionServices = roleModulePermissionServices;
         }
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
             var httpContext = _accessor.HttpContext;
             var permissionsList = requirement.Permissions;
+             
             if (!permissionsList.Any())
             {
-               // var data = await _roleModulePermissionServices.RoleModuleMaps();
-               // var list = (from item in data
-                //            where item.IsDeleted == false
-                //            orderby item.Id
-                //            select new PermissionItem
-                //            {
-                 //               Url = item.Module?.LinkUrl,
-                 //               Role = item.Role?.Id.ObjToString(),
-                  //          }).ToList();
-                requirement.Permissions = new List<PermissionItem>() {
-                    new PermissionItem{Role="Admin",Url="/WeatherForecast/UpdateWeather"}
-                };
+                var data = await _roleModulePermissionServices.RoleModuleMaps();
+                var list = data.Select(m => new PermissionItem { Role = m.Role?.Id.ObjToString(), Url = m.Module?.LinkUrl }).ToList();
+                requirement.Permissions = list;
+                
             }
             if (httpContext!=null)
             {

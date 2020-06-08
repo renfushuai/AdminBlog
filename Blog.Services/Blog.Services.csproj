@@ -18,5 +18,6 @@
     <ProjectReference Include="..\Blog.Model\Blog.Model.csproj" />
     <ProjectReference Include="..\Blog.IRepository\Blog.IRepository.csproj" />
     <ProjectReference Include="..\Blog.IServices\Blog.IServices.csproj" />
+    <ProjectReference Include="..\Blog.Common\Blog.Common.csproj" />
   </ItemGroup>
 </Project>
