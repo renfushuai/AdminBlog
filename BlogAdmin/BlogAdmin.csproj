@@ -9,6 +9,11 @@
     <DocumentationFile>bin\Debug\netcoreapp3.1\BlogAdmin.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
+
+
+  <ItemGroup>
+    <Compile Remove="AOP\UnitOfWorkAOP.cs" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="Extemsions\" />
     <Folder Include="AuthHelper\" />
