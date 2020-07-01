@@ -20,5 +20,12 @@ namespace BlogAdmin.Controllers
             var s = BitConverter.ToString(bys);
             return s;
         }
+        [HttpPost]
+        [Route("UpdateUser")]
+        [AllowAnonymous]
+        public string UpdateUser([FromBody]Blog.Dto.UserDto dto)
+        {
+            return "ok";
+        }
     }
 }

@@ -6,7 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+*.txt
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -259,8 +259,3 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/AdminNIS/.nuget
-/AdminNIS/XDF.Pay/Model/PayDataEntity.cs
-/部署/建模/Physical Data _学员、支付、其它.pdm
-/部署/脚本/第4次迭代增量脚本.2.sql.bak
-/部署/脚本/初始化脚本/BS_Config初始化脚本.sql.bak

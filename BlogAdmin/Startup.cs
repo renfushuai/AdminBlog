@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Autofac;
 using Blog.Common.Helper;
 using Blog.IServices;
+using BlogAdmin.AOP;
 using BlogAdmin.Extemsions;
 using BlogAdmin.Middlewares;
 using Microsoft.AspNetCore.Builder;
@@ -43,7 +44,10 @@ namespace BlogAdmin
             services.AddSwaggerSetup();
             services.AddAuthorizationSetup();
             services.AddSqlSugarSetup();
-            services.AddControllers()   //全局配置Json序列化处理
+            services.AddControllers(option =>
+            {
+                option.Filters.Add(typeof(CustomResultFilter));
+            })   //全局配置Json序列化处理
          .AddNewtonsoftJson(options =>
          {
                 //忽略循环引用  
