@@ -46,7 +46,7 @@ namespace BlogAdmin
             services.AddSqlSugarSetup();
             services.AddControllers(option =>
             {
-                option.Filters.Add(typeof(CustomResultFilter));
+                option.Filters.Add(typeof(ActionFilter));
             })   //全局配置Json序列化处理
          .AddNewtonsoftJson(options =>
          {

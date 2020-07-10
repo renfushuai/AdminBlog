@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace BlogAdmin.AOP
 {
-    public class CustomResultFilter : ActionFilterAttribute
+    public class ActionFilter : IActionFilter
     {
-        public override void OnResultExecuting(ResultExecutingContext context)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
-
             if (!context.ModelState.IsValid)
             {
                 var errorMsg = "";
@@ -27,6 +26,11 @@ namespace BlogAdmin.AOP
                 }
                 context.Result = new JsonResult(ApiResponse.Error<string>(errorMsg.Trim(',')));
             }
+        }
+
+        public void OnActionExecuted(ActionExecutedContext context)
+        {
+
         }
     }
 }
