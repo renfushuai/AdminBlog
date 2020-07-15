@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Blog.Common
+namespace Blog.Common.AttributeEx
 {
     /// <summary>
     /// 工作单元 只能作用在方法上
